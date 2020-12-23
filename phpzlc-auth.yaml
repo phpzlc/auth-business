@@ -1,0 +1,10 @@
+parameters:
+  ##########################公共配置################################
+
+  # 登录标识位session名
+  login_tag_session_name: _login_tag
+
+  # 操作主体
+  subject_system: 1
+
+  subject_admin:  2
