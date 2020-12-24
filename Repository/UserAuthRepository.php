@@ -23,7 +23,7 @@ use PHPZlc\PHPZlc\Doctrine\ORM\Rule\Rules;
 
 class UserAuthRepository extends AbstractServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, string $entityClass)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserAuth::class);
     }
