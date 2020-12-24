@@ -16,7 +16,7 @@ class CurAuthSubject
 {
     private static $cur_user_auth;
     
-    private static $cur_auth_succes_go_url = '';
+    private static $cur_auth_success_go_url = '';
 
     /**
      * 设置当前管理员授权信息
@@ -25,17 +25,17 @@ class CurAuthSubject
      */
     public static function setCurUserAuth(UserAuth $userAuth)
     {
-        self::$cur_user_auth = $user_auth;
+        self::$cur_user_auth = $userAuth;
     }
 
     /**
      * 设置当前可跳转路由
-     * 
-     * @param $cur_auth_sucess_go_url｜
+     *
+     * @param $cur_auth_success_go_url
      */
-    public static function setCurAuthSuccesGoUrl($cur_auth_sucess_go_url)
+    public static function setCurAuthSuccessGoUrl($cur_auth_success_go_url)
     {
-        self::$cur_auth_succes_go_url = $cur_auth_sucess_go_url;
+        self::$cur_auth_success_go_url = $cur_auth_success_go_url;
     }
 
     /**
@@ -53,8 +53,8 @@ class CurAuthSubject
      * 
      * @return string
      */
-    public static function getCurAuthSuccesGoUrl()
+    public static function getCurAuthSuccessGoUrl()
     {
-        return self::$cur_auth_succes_go_url;
+        return self::$cur_auth_success_go_url;
     }
 }
