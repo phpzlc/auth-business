@@ -11,11 +11,29 @@
 namespace App\Business;
 
 use App\Entity\UserAuth;
+use App\Entity\UserInterface;
 
 class CurAuthSubject
 {
+    /**
+     * 当前管理员授权信息
+     *
+     * @var UserAuth
+     */
     private static $cur_user_auth;
-    
+
+    /**
+     * 当前管理员信息
+     *
+     * @var UserInterface
+     */
+    private static $cur_user;
+
+    /**
+     * 当前可跳转路由
+     *
+     * @var string
+     */
     private static $cur_auth_success_go_url = '';
 
     /**
@@ -56,5 +74,25 @@ class CurAuthSubject
     public static function getCurAuthSuccessGoUrl()
     {
         return self::$cur_auth_success_go_url;
+    }
+
+    /**
+     * 设置当前登录用户信息
+     *
+     * @param UserInterface $user
+     */
+    public static function setCurUser(UserInterface $user)
+    {
+        self::$cur_user = $user;
+    }
+
+    /**
+     * 获取当前登录管理员信息
+     *
+     * @return UserInterface
+     */
+    public static function getCurUser()
+    {
+        return self::$cur_user;
     }
 }
