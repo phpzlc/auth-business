@@ -10,9 +10,14 @@
 
 namespace App\Business;
 
-use App\Business\PlatformBusiness\PlatformBusiness;
+
 use App\Business\PlatformBusiness\PlatformClass;
+use App\Entity\UserAuth;
+use Doctrine\Persistence\ManagerRegistry;
+use PHPZlc\PHPZlc\Abnormal\Error;
+use PHPZlc\PHPZlc\Abnormal\Errors;
 use Psr\Container\ContainerInterface;
+use Exception;
 
 class AuthTag
 {
@@ -20,17 +25,17 @@ class AuthTag
      * 设置Session标记
      * 
      * @param ContainerInterface $container
-     * @param $user_auth_id
+     * @param UserAuth $userAuth
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function set(ContainerInterface $container, $user_auth_id)
+    public static function set(ContainerInterface $container, UserAuth $userAuth)
     {
         $tag = '';
 
         switch (PlatformClass::getPlatform()){
             case $container->get('parameter_bag')->get('platform_admin'):
-                $container->get('session')->set(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'), $user_auth_id);
+                $container->get('session')->set(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'), $userAuth->getId());
                 break;
 
             default:
@@ -44,28 +49,38 @@ class AuthTag
      * 获取Session标记内容
      * 
      * @param ContainerInterface $container
-     * @return mixed
-     * @throws \Exception
+     * @return UserAuth|false|object
+     * @throws Exception
      */
     public static function get(ContainerInterface $container)
     {
+        /**
+         * @var ManagerRegistry $doctrine
+         */
+        $doctrine = $container->get('doctrine');
+
         switch (PlatformClass::getPlatform()){
             case $container->get('parameter_bag')->get('platform_admin'):
                 $user_auth_id = $container->get('session')->get(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'));
+                $userAuth = $doctrine->getRepository('App:UserAuth')->find($user_auth_id);
+                if(empty($userAuth)){
+                    Errors::setError(new Error('登录失效，请重新登录', -1));
+                    return false;
+                }
                 break;
 
             default:
                 throw new \Exception('来源溢出');
         }
 
-        return $user_auth_id;
+        return $userAuth;
     }
 
     /**
      * 移除Session标记
      * 
      * @param ContainerInterface $container
-     * @throws \Exception
+     * @throws Exception
      */
     public static function remove(ContainerInterface $container)
     {
