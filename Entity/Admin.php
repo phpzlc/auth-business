@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=AdminRepository::class)
  * @ORM\Table(name="admin", options={"comment":"管理员表"})
  */
-class Admin
+class Admin implements UserInterface
 {
     /**
      * @var string
