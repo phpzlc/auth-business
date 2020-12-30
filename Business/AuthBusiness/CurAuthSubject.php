@@ -8,7 +8,7 @@
  * Time: 10:21 上午
  */
 
-namespace App\Business;
+namespace App\Business\AuthBusiness;
 
 use App\Entity\UserAuth;
 use App\Entity\UserInterface;

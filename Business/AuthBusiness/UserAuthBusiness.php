@@ -8,7 +8,7 @@
  * Time: 4:05 下午
  */
 
-namespace App\Business;
+namespace App\Business\AuthBusiness;
 
 use App\Business\SubjectAuth\AdminAuth;
 use App\Entity\UserAuth;
@@ -17,6 +17,7 @@ use PHPZlc\PHPZlc\Abnormal\Errors;
 use PHPZlc\PHPZlc\Bundle\Business\AbstractBusiness;
 use PHPZlc\Validate\Validate;
 use Psr\Container\ContainerInterface;
+use Exception;
 
 class UserAuthBusiness extends AbstractBusiness
 {
@@ -43,7 +44,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param UserAuth $userAuth
      * @param bool $is_flush
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(UserAuth $userAuth, $is_flush = true)
     {
@@ -74,7 +75,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param $subject_type
      * @return AdminAuth|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     private function getUserAuthService($subject_type)
     {
@@ -102,7 +103,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param string $userAuthFunctionName
      * @param string $account_title
      * @return false
-     * @throws \Exception
+     * @throws Exception
      */
     public function accountLogin($account, $password, $sugject_type, $account_field = 'account', $userAuthFunctionName = 'getUserAuth', $account_title = '账号')
     {
@@ -138,7 +139,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param UserAuth $userAuth
      * @return false|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function login(UserAuth $userAuth)
     {
@@ -177,7 +178,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param $rules
      * @param $subject_type
      * @return \App\Entity\Admin[]|false|mixed|object[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function checkStatus($rules, $subject_type)
     {
@@ -202,7 +203,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param $old_password
      * @param $new_password
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function changePassword(UserAuth $userAuth, $old_password, $new_password)
     {
@@ -249,7 +250,7 @@ class UserAuthBusiness extends AbstractBusiness
      * 检查登录状态
      *
      * @return UserAuth|false|object
-     * @throws \Exception
+     * @throws Exception
      */
     public function isLogin()
     {
@@ -287,7 +288,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param string $salt
      * @return string
      */
-    public function encryptPassword($password, $salt = '')
+    public static function encryptPassword($password, $salt = '')
     {
         return sha1(md5($password) . $salt);
     }

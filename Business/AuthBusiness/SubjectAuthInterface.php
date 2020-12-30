@@ -8,7 +8,7 @@
  * Time: 10:14 上午
  */
 
-namespace App\Business;
+namespace App\Business\AuthBusiness;
 
 interface SubjectAuthInterface
 {

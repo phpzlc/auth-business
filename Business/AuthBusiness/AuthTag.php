@@ -8,7 +8,7 @@
  * Time: 3:30 下午
  */
 
-namespace App\Business;
+namespace App\Business\AuthBusiness;
 
 
 use App\Business\PlatformBusiness\PlatformClass;

@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use App\Business\AuthBusiness\UserAuthBusiness;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserAuthRepository;
+use PHPZlc\PHPZlc\Abnormal\Errors;
+use PHPZlc\Validate\Validate;
 
 /**
  * @ORM\Entity(repositoryClass=UserAuthRepository::class)
@@ -107,7 +111,13 @@ class UserAuth
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        if(!empty($password)){
+            if(!Validate::isPassword($password)){
+                Errors::setErrorMessage('请输入6-20位无特殊字符密码');
+            }
+        }
+
+        $this->password = UserAuthBusiness::encryptPassword($password, $this->salt);
 
         return $this;
     }
