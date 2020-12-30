@@ -22,11 +22,15 @@ use Exception;
 class UserAuthBusiness extends AbstractBusiness
 {
     /**
+     * 授权登录表Repository
+     *
      * @var UserAuthRepository
      */
     private $userAuthRepository;
 
     /**
+     * 多类型用户表业务
+     *
      * @var SubjectAuthInterface
      */
     private $subjectAuthCaches = [];
