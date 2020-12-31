@@ -17,6 +17,7 @@ class UserAuth
 {
     /**
      * @var string
+     * @ORM\Id()
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="App\Doctrine\SortIdGenerator")

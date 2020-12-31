@@ -10,7 +10,7 @@
 
 namespace App\Business\AuthBusiness;
 
-use App\Business\SubjectAuth\AdminAuth;
+use App\Business\AdminBusiness\AdminAuth;
 use App\Entity\UserAuth;
 use App\Repository\UserAuthRepository;
 use PHPZlc\PHPZlc\Abnormal\Errors;
@@ -39,7 +39,7 @@ class UserAuthBusiness extends AbstractBusiness
     {
         parent::__construct($container);
         
-        $this->userAuthRepository = $this->getDoctrine()->getRepository('UserAuth');
+        $this->userAuthRepository = $this->getDoctrine()->getRepository('App:UserAuth');
     }
 
     /**
@@ -172,7 +172,7 @@ class UserAuthBusiness extends AbstractBusiness
 
         CurAuthSubject::setCurUserAuth($userAuth);
 
-        return AuthTag::set($this->container, $userAuth->getId());
+        return AuthTag::set($this->container, $userAuth);
 
     }
 
@@ -258,14 +258,12 @@ class UserAuthBusiness extends AbstractBusiness
      */
     public function isLogin()
     {
-        $user_auth_id = AuthTag::get($this->container);
+        $userAuth = AuthTag::get($this->container);
 
         if(empty($user_auth_id)){
             Errors::setErrorMessage('登录超时');
             return false;
         }
-
-        $userAuth = $this->userAuthRepository->find($user_auth_id);
 
         if(empty($userAuth)){
             Errors::setErrorMessage('登录超时');
@@ -278,7 +276,10 @@ class UserAuthBusiness extends AbstractBusiness
             return false;
         }
 
+        $user = $this->getUserAuthService($userAuth->getSubjectType())->user(['id' => $userAuth->getSubjectId()]);
+
         CurAuthSubject::setCurUserAuth($userAuth);
+        CurAuthSubject::setCurUser($user);
 
         return $userAuth;
     }
