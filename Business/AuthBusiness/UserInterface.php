@@ -8,7 +8,7 @@
  * Time: 4:25 下午
  */
 
-namespace App\Entity;
+namespace App\Business\AuthBusiness;
 
 interface UserInterface
 {
