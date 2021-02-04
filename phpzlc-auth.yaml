@@ -1,6 +1,9 @@
 parameters:
   ##########################公共配置################################
 
+  #平台来源
+  platform_admin: Admin
+
   # 登录标识位session名
   login_tag_session_name: _login_tag
 
