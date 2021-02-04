@@ -11,7 +11,7 @@
 namespace App\Business\AuthBusiness;
 
 use App\Entity\UserAuth;
-use App\Entity\UserInterface;
+use App\Business\AuthBusiness\UserInterface;
 
 class CurAuthSubject
 {
