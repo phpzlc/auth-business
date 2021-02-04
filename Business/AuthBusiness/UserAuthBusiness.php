@@ -260,11 +260,6 @@ class UserAuthBusiness extends AbstractBusiness
     {
         $userAuth = AuthTag::get($this->container);
 
-        if(empty($user_auth_id)){
-            Errors::setErrorMessage('登录超时');
-            return false;
-        }
-
         if(empty($userAuth)){
             Errors::setErrorMessage('登录超时');
             return false;
