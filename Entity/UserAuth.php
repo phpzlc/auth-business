@@ -20,7 +20,7 @@ class UserAuth
      * @ORM\Id()
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="App\Doctrine\SortIdGenerator")
+     * @ORM\CustomIdGenerator(class="PHPZlc\PHPZlc\Doctrine\SortIdGenerator")
      * 
      */
     private $id;
