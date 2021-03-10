@@ -18,6 +18,7 @@ use PHPZlc\PHPZlc\Bundle\Business\AbstractBusiness;
 use PHPZlc\Validate\Validate;
 use Psr\Container\ContainerInterface;
 use Exception;
+use App\Entity\Admin;
 
 class UserAuthBusiness extends AbstractBusiness
 {
@@ -102,14 +103,37 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param $account
      * @param $password
-     * @param $sugject_type
+     * @param $subject_type
      * @param string $account_field
      * @param string $userAuthFunctionName
      * @param string $account_title
-     * @return false
+     * @return false|void
      * @throws Exception
      */
-    public function accountLogin($account, $password, $sugject_type, $account_field = 'account', $userAuthFunctionName = 'getUserAuth', $account_title = '账号')
+    public function accountLogin($account, $password, $subject_type, $account_field = 'account', $account_title = '账号', $userAuthFunctionName = 'getUserAuth')
+    {
+        $userAuth = $this->accountCheck($account, $password, $subject_type, $account_field, $account_title, $userAuthFunctionName);
+
+        if($userAuth === false){
+            return false;
+        }
+
+        return $this->login($userAuth);
+    }
+
+    /**
+     * 账号校验
+     *
+     * @param $account
+     * @param $password
+     * @param $subject_type
+     * @param string $account_field
+     * @param string $account_title
+     * @param string $userAuthFunctionName
+     * @return false|UserAuth
+     * @throws Exception
+     */
+    public function accountCheck($account, $password, $subject_type, $account_field = 'account', $account_title = '账号', $userAuthFunctionName = 'getUserAuth')
     {
         if(empty($account)){
             Errors::setErrorMessage($account_title . '不能为空');
@@ -121,7 +145,7 @@ class UserAuthBusiness extends AbstractBusiness
             return false;
         }
 
-        $user = $this->getUserAuthService($sugject_type)->user([$account_field => $account]);
+        $user = $this->getUserAuthService($subject_type)->user([$account_field => $account]);
 
         if(empty($user)){
             Errors::setErrorMessage($account_title . '不存在');
@@ -135,7 +159,7 @@ class UserAuthBusiness extends AbstractBusiness
             return false;
         }
 
-        return $this->login($userAuth);
+        return $userAuth;
     }
 
     /**
@@ -168,7 +192,6 @@ class UserAuthBusiness extends AbstractBusiness
         $userAuth->setLastLoginIp($this->get('request_stack')->getCurrentRequest()->getClientIp());
 
         $this->em->flush();
-        $this->em->clear();
 
         CurAuthSubject::setCurUserAuth($userAuth);
 
@@ -181,7 +204,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param $rules
      * @param $subject_type
-     * @return \App\Entity\Admin[]|false|mixed|object[]
+     * @return Admin[]|false|mixed|object[]
      * @throws Exception
      */
     public function checkStatus($rules, $subject_type)
