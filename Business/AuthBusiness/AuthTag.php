@@ -54,6 +54,7 @@ class AuthTag
      */
     public static function get(ContainerInterface $container)
     {
+        $userAuth = null;
         /**
          * @var ManagerRegistry $doctrine
          */
