@@ -7,5 +7,5 @@ parameters:
   subject_system: system
 
   # 全部操作主体
-  platform_array:
+  subject_array:
     '%subject_system%': 系统
