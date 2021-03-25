@@ -39,6 +39,23 @@ class UserAuth
      */
     private $subjectType;
 
+
+    /**
+     * @var string
+     *
+     * @OuterColumn(name="subject_name", type="string", options={"comment":"主体人名称"},
+    sql="
+    (
+    CASE subject_type
+        WHEN 'admin' THEN ifnull ((select a.name from admin a where a.user_auth_id = sql_pre.id), '')
+        ELSE ''
+    END
+    )
+    "
+    )
+     */
+    private $subjectName;
+
     /**
      * @var string
      *
@@ -169,5 +186,10 @@ class UserAuth
         $this->createAt = $createAt;
 
         return $this;
+    }
+
+    public function getSubjectName(): ?string
+    {
+        return $this->subjectName;
     }
 }
