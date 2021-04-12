@@ -34,10 +34,6 @@ class AuthTag
         $tag = '';
 
         switch (PlatformClass::getPlatform()){
-            case $container->get('parameter_bag')->get('platform_admin'):
-                $container->get('session')->set(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'), $userAuth->getId());
-                break;
-
             default:
                 throw new \Exception('来源溢出');
         }
@@ -61,15 +57,6 @@ class AuthTag
         $doctrine = $container->get('doctrine');
 
         switch (PlatformClass::getPlatform()){
-            case $container->get('parameter_bag')->get('platform_admin'):
-                $user_auth_id = $container->get('session')->get(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'));
-                $userAuth = $doctrine->getRepository('App:UserAuth')->find($user_auth_id);
-                if(empty($userAuth)){
-                    Errors::setError(new Error('登录失效，请重新登录', -1));
-                    return false;
-                }
-                break;
-
             default:
                 throw new \Exception('来源溢出');
         }
@@ -86,10 +73,6 @@ class AuthTag
     public static function remove(ContainerInterface $container)
     {
         switch (PlatformClass::getPlatform()){
-            case $container->get('parameter_bag')->get('platform_admin'):
-                $container->get('session')->remove(PlatformClass::getPlatform() . $container->get('parameter_bag')->get('login_tag_session_name'));
-                break;
-
             default:
                 throw new \Exception('来源溢出');
         }

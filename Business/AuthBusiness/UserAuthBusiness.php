@@ -10,7 +10,6 @@
 
 namespace App\Business\AuthBusiness;
 
-use App\Business\AdminBusiness\AdminAuth;
 use App\Entity\UserAuth;
 use App\Repository\UserAuthRepository;
 use PHPZlc\PHPZlc\Abnormal\Errors;
@@ -18,7 +17,6 @@ use PHPZlc\PHPZlc\Bundle\Business\AbstractBusiness;
 use PHPZlc\Validate\Validate;
 use Psr\Container\ContainerInterface;
 use Exception;
-use App\Entity\Admin;
 
 class UserAuthBusiness extends AbstractBusiness
 {
@@ -200,7 +198,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param $rules
      * @param $subject_type
-     * @return Admin[]|false|mixed|object[]
+     * @return false|UserInterface[]
      * @throws Exception
      */
     public function checkStatus($rules, $subject_type)
