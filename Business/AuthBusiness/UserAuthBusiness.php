@@ -247,13 +247,12 @@ class UserAuthBusiness extends AbstractBusiness
             Errors::setErrorMessage('原始密码不正确');
             return false;
         }
-        
-        if(!Validate::isPassword($new_password)){
-            Errors::setErrorMessage('密码格式不正确，请输入6-20位无特殊字符密码');
+
+        $userAuth->setPassword($new_password);
+
+        if(Errors::isExistError()){
             return false;
         }
-
-        $userAuth->setPassword($this->encryptPassword($new_password, $userAuth->getSalt()));
 
         try {
             $this->em->flush();
