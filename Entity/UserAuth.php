@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserAuthRepository;
 use PHPZlc\PHPZlc\Abnormal\Errors;
 use PHPZlc\Validate\Validate;
+use PHPZlc\PHPZlc\Doctrine\ORM\Mapping\OuterColumn;
 
 /**
  * @ORM\Entity(repositoryClass=UserAuthRepository::class)
