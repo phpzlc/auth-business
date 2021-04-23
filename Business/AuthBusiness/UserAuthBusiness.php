@@ -16,7 +16,6 @@ use PHPZlc\PHPZlc\Abnormal\Errors;
 use PHPZlc\PHPZlc\Bundle\Business\AbstractBusiness;
 use PHPZlc\Validate\Validate;
 use Psr\Container\ContainerInterface;
-use Exception;
 
 class UserAuthBusiness extends AbstractBusiness
 {
@@ -47,7 +46,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param UserAuth $userAuth
      * @param bool $is_flush
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public function create(UserAuth $userAuth, $is_flush = true)
     {
@@ -77,8 +76,8 @@ class UserAuthBusiness extends AbstractBusiness
      * 获取指定平台端方法
      *
      * @param $subject_type
-     * @return AdminAuth|mixed
-     * @throws Exception
+     * @return SubjectAuthInterface
+     * @throws \Exception
      */
     private function getUserAuthService($subject_type)
     {
@@ -102,7 +101,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param string $userAuthFunctionName
      * @param string $account_title
      * @return false|void
-     * @throws Exception
+     * @throws \Exception
      */
     public function accountLogin($account, $password, $subject_type, $account_field = 'account', $account_title = '账号', $userAuthFunctionName = 'getUserAuth')
     {
@@ -125,7 +124,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param string $account_title
      * @param string $userAuthFunctionName
      * @return false|UserAuth
-     * @throws Exception
+     * @throws \Exception
      */
     public function accountCheck($account, $password, $subject_type, $account_field = 'account', $account_title = '账号', $userAuthFunctionName = 'getUserAuth')
     {
@@ -161,7 +160,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @param UserAuth $userAuth
      * @return false|string
-     * @throws Exception
+     * @throws \Exception
      */
     public function login(UserAuth $userAuth)
     {
@@ -199,7 +198,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param $rules
      * @param $subject_type
      * @return false|UserInterface[]
-     * @throws Exception
+     * @throws \Exception
      */
     public function checkStatus($rules, $subject_type)
     {
@@ -224,7 +223,7 @@ class UserAuthBusiness extends AbstractBusiness
      * @param $old_password
      * @param $new_password
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public function changePassword(UserAuth $userAuth, $old_password, $new_password)
     {
@@ -270,7 +269,7 @@ class UserAuthBusiness extends AbstractBusiness
      * 检查登录状态
      *
      * @return UserAuth|false|object
-     * @throws Exception
+     * @throws \Exception
      */
     public function isLogin()
     {
