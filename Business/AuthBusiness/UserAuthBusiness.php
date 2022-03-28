@@ -217,7 +217,7 @@ class UserAuthBusiness extends AbstractBusiness
     }
 
     /**
-     * 修改密码
+     * 使用旧密码修改密码
      *
      * @param UserAuth $userAuth
      * @param $old_password
@@ -247,6 +247,47 @@ class UserAuthBusiness extends AbstractBusiness
             return false;
         }
 
+        return $this->updatePassword($userAuth, $new_password);
+    }
+
+
+    /**
+     * 找回密码
+     *
+     * @param UserAuth $userAuth
+     * @param string $new_password
+     * @param string $again_password 再次输入确认密码
+     * @return bool
+     */
+    public function retrievePassword(UserAuth $userAuth, $new_password, $again_password)
+    {
+        if(empty($userAuth)){
+            Errors::setErrorMessage('账号不存在');
+            return false;
+        }
+
+        if(empty($new_password)){
+            Errors::setErrorMessage('密码不能为空');
+            return false;
+        }
+
+        if($new_password != $again_password){
+            Errors::setErrorMessage('两次密码输入不一致');
+            return false;
+        }
+
+        return $this->updatePassword($userAuth, $new_password);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param UserAuth $userAuth
+     * @param $new_password
+     * @return bool
+     */
+    public function updatePassword(UserAuth $userAuth, $new_password)
+    {
         $userAuth->setPassword($new_password);
 
         if(Errors::isExistError()){
@@ -263,7 +304,6 @@ class UserAuthBusiness extends AbstractBusiness
             return false;
         }
     }
-
 
     /**
      * 检查登录状态
