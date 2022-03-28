@@ -282,7 +282,6 @@ class UserAuthBusiness extends AbstractBusiness
 
         $result = $this->checkStatus(['id' => $userAuth->getSubjectId()], $userAuth->getSubjectType());
         if($result === false){
-            Errors::getError();
             return false;
         }
 
