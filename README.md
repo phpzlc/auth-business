@@ -4,4 +4,4 @@
 
 ## 文档
 
-[https://phpzlc.com/doc/zh-CN/auth-business](https://phpzlc.com/doc/zh-CN/auth-business)
+[https://phpzlc.com/doc/zh-CN/auth-business)](https://phpzlc.com/doc/zh-CN/auth-business)
