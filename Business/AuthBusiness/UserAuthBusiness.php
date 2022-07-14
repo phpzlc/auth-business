@@ -24,7 +24,7 @@ class UserAuthBusiness extends AbstractBusiness
      *
      * @var UserAuthRepository
      */
-    private $userAuthRepository;
+    public $userAuthRepository;
 
     /**
      * 多类型用户表业务
