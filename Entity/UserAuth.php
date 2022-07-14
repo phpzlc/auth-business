@@ -60,14 +60,14 @@ class UserAuth
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", options={"comment":"密码"})
+     * @ORM\Column(name="password", type="string", nullable=true, options={"comment":"密码"})
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=4, options={"comment":"盐值"})
+     * @ORM\Column(name="salt", type="string", length=4, nullable=true, options={"comment":"盐值"})
      */
     private $salt;
 
