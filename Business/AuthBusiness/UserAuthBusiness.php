@@ -37,7 +37,7 @@ class UserAuthBusiness extends AbstractBusiness
     {
         parent::__construct($container);
         
-        $this->userAuthRepository = $this->getDoctrine()->getRepository('App:UserAuth');
+        $this->userAuthRepository = $this->getDoctrine()->getRepository(UserAuth::class);
     }
 
     /**
