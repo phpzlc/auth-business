@@ -186,7 +186,6 @@ class UserAuthBusiness extends AbstractBusiness
 
         $this->em->flush();
 
-        $this->em->refresh($userAuth);
         CurAuthSubject::setCurUserAuth($userAuth);
 
         return AuthTag::set($this->container, $userAuth);
