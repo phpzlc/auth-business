@@ -186,7 +186,7 @@ class UserAuthBusiness extends AbstractBusiness
 
         $this->em->flush();
 
-        $this->em->persist($userAuth);
+        $this->em->refresh($userAuth);
         CurAuthSubject::setCurUserAuth($userAuth);
 
         return AuthTag::set($this->container, $userAuth);
@@ -328,8 +328,8 @@ class UserAuthBusiness extends AbstractBusiness
 
         $user = $this->getUserAuthService($userAuth->getSubjectType())->user(['id' => $userAuth->getSubjectId()]);
         
-        $this->em->persist($userAuth);
-        $this->em->persist($user);
+        $this->em->refresh($userAuth);
+        $this->em->refresh($user);
         CurAuthSubject::setCurUserAuth($userAuth);
         CurAuthSubject::setCurUser($user);
 
