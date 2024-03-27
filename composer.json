@@ -22,7 +22,7 @@
     }
   },
   "require": {
-    "phpzlc/phpzlc": "2.*",
-    "phpzlc/platform-business": "2.*"
+    "phpzlc/phpzlc": "3.*",
+    "phpzlc/platform-business": "3.*"
   }
 }
